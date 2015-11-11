@@ -1,0 +1,46 @@
+<project name="j_tank" default="j_tank" basedir=".">
+
+    <include file="../all_filesets.xml"/>
+    <include file="../common.xml"/>
+    <property file="../build.properties"/>
+    <dirname property="j_tank.basedir" file="${ant.file.j_tank}"/>
+    <tstamp/>
+    <property name="j_tank.jar" value="j_tank_${DSTAMP}.jar"/>
+
+    <target name="j_tank" depends="make.j_tank,save.j_tank"/>
+
+    <target name="make.j_tank" depends="clean.j_tank">
+        <antcall target="generate.required.shell.scripts.for.tank"/>
+        <make module="${j_tank.basedir}" jarname="${j_tank.jar}" source="src" targetdir="made">
+            <make.classpath>
+                <classpath>
+                    <resources refid="all"/>
+                </classpath>
+            </make.classpath>
+        </make>
+    </target>
+
+    <target name="save.j_tank">
+        <save targetdir="${j_tank.basedir}/dist">
+            <save.fileset>
+                <fileset dir="${j_tank.basedir}/made">
+                    <include name="${j_tank.jar}"/>
+                    <include name="*.sh"/>
+                </fileset>
+            </save.fileset>
+        </save>
+    </target>
+
+    <target name="clean.j_tank">
+        <init.dir dir="${j_tank.basedir}/made"/>
+        <init.dir dir="${j_tank.basedir}/dist"/>
+    </target>
+
+    <target name="generate.required.shell.scripts.for.tank">
+        <echo file="${j_tank.basedir}/made/run_app.sh">#!/bin/sh
+
+            java -classpath "libs/*" uk.co.itstherules.TankApp
+        </echo>
+    </target>
+
+</project>

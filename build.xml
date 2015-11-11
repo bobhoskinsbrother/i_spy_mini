@@ -1,0 +1,32 @@
+<project name="i_spy_mini" default="i_spy_mini" basedir=".">
+
+    <property file="build.properties"/>
+    <dirname property="master.basedir" file="${ant.file.i_spy_mini}"/>
+
+    <import file="${master.basedir}/common.xml"/>
+    <import file="${master.basedir}/j_tank/build.xml"/>
+
+    <target name="i_spy_mini" depends="
+		make.i_spy_mini.master,
+		save.i_spy_mini.master"/>
+
+    <target name="make.i_spy_mini.master">
+
+        <init.dir dir="dist"/>
+
+        <antcall target="j_tank.j_tank"/>
+
+        <sequential>
+            <zip destfile="${master.basedir}/dist/i_spy_mini_${DSTAMP}.zip">
+                <zipfileset dir="${master.basedir}/j_tank/dist/" includes="*.sh" prefix="/" filemode="755" />
+                <zipfileset dir="${master.basedir}/libs/production/" includes="*.jar" prefix="libs"/>
+                <zipfileset dir="${master.basedir}/j_tank/dist/" includes="*.jar" prefix="libs"/>
+            </zip>
+        </sequential>
+    </target>
+
+    <target name="save.i_spy_mini.master">
+    </target>
+
+
+</project>

@@ -1,0 +1,21 @@
+<project name="all_filesets" default="empty" basedir=".">
+
+    <target name="empty"></target>
+
+    <dirname property="all_filesets.basedir" file="${ant.file.all_filesets}"/>
+
+    <fileset id="all" dir="${all_filesets.basedir}/libs/production/">
+        <include name="bridj-0.6.3-20130316.190111-13.jar"/>
+        <include name="commons-codec-1.6.jar"/>
+        <include name="commons-logging-1.1.1.jar"/>
+        <include name="httpclient-4.2.3.jar"/>
+        <include name="httpcore-4.2.2.jar"/>
+        <include name="httpmime-4.2.3.jar"/>
+        <include name="slf4j-api-1.7.2.jar"/>
+        <include name="slf4j-jdk14-1.7.12.jar"/>
+        <include name="webcam-capture-0.3.10-RC7.jar"/>
+        <include name="webcam-capture-driver-ipcam-0.3.10-RC7.jar"/>
+    </fileset>
+
+
+</project>
